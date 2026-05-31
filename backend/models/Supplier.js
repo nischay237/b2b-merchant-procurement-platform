@@ -51,3 +51,56 @@ const SEED_SUPPLIERS = [
     leadTimeHours: 3.5,
     catalog: [
       { name: "Wheat Flour (Aata)", category: "KIRANA", unitPrice: 27.5, availableQty: 15000, unit: "kg" },
+      { name: "Mustard Oil", category: "KIRANA", unitPrice: 128.0, availableQty: 8000, unit: "Liters" },
+      { name: "Refined Soyabean Oil", category: "KIRANA", unitPrice: 115.0, availableQty: 10000, unit: "Liters" }
+    ],
+    reviews: [
+      { reviewer: "Ramesh Sharma", shop: "Sharma Kirana Store", location: "Kanpur", rating: 5, date: "18 Aug 2026", comment: "Fast 3-hour express delivery!" }
+    ]
+  },
+  {
+    id: "SUP-KNP-01",
+    name: "Kanpur Central Wholesale Mandi",
+    type: "Wholesaler",
+    location: "Nayaganj, Kanpur, UP",
+    phone: "+91 98765 4321",
+    whatsapp: "91987654321",
+    coords: [26.4600, 80.3400],
+    rating: 4.6,
+    accuracy: 0.96,
+    leadTimeHours: 1.5,
+    catalog: [
+      { name: "Wheat Flour (Aata)", category: "KIRANA", unitPrice: 32.0, availableQty: 5000, unit: "kg" },
+      { name: "Mustard Oil", category: "KIRANA", unitPrice: 140.0, availableQty: 2000, unit: "Liters" },
+      { name: "Basmati Rice", category: "KIRANA", unitPrice: 65.0, availableQty: 3000, unit: "kg" },
+      { name: "Sugar (Chini)", category: "KIRANA", unitPrice: 38.0, availableQty: 4000, unit: "kg" }
+    ],
+    reviews: [
+      { reviewer: "Deepak Agarwal", shop: "Agarwal General Store", location: "Kanpur", rating: 5, date: "20 Aug 2026", comment: "Super fast 1.5 hour delivery in Kanpur!" }
+    ]
+  }
+];
+
+module.exports = {
+  SupplierModel,
+  getAllSuppliers: async () => {
+    try {
+      if (mongoose.connection.readyState === 1) {
+        const suppliers = await SupplierModel.find({});
+        if (suppliers.length > 0) return suppliers;
+      }
+    } catch (err) {
+      console.log("Using seed data fallback for MongoDB query");
+    }
+    return SEED_SUPPLIERS;
+  },
+  getSupplierById: async (id) => {
+    try {
+      if (mongoose.connection.readyState === 1) {
+        const supplier = await SupplierModel.findOne({ id });
+        if (supplier) return supplier;
+      }
+    } catch (err) {}
+    return SEED_SUPPLIERS.find(s => s.id === id);
+  }
+};

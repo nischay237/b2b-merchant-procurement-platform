@@ -39,3 +39,44 @@ function matchSuppliers(merchantReq, registeredSuppliers) {
       if (!stock || stock.availableQty < reqItem.quantity) {
         canFulfill = false;
       } else {
+        const subtotal = stock.unitPrice * reqItem.quantity;
+        baseItemCost += subtotal;
+        breakdown.push({
+          item_name: reqItem.item_name,
+          quantity: reqItem.quantity,
+          unit: reqItem.unit,
+          unitPrice: stock.unitPrice,
+          subtotal
+        });
+      }
+    });
+
+    if (canFulfill) {
+      const dist = calcDistance(coords[0], coords[1], supp.coords[0], supp.coords[1]);
+      const rawFreight = baseFreight + (freightRate * dist * totalWeight);
+      const logisticsCost = Math.round(rawFreight * expressSurcharge * 100) / 100;
+      const platformFee = Math.round(baseItemCost * 0.02 * 100) / 100;
+      const tax = Math.round((baseItemCost + platformFee) * 0.05 * 100) / 100;
+      const landedCost = Math.round((baseItemCost + logisticsCost + platformFee + tax) * 100) / 100;
+
+      const etaHours = Math.round((supp.leadTimeHours + (dist / speedKmh)) * 10) / 10;
+      const reliability = Math.round(((supp.rating / 5) * 40 + supp.accuracy * 40 + 20) * 10) / 10;
+
+      quotes.push({
+        quote_id: `QT-${supp.id}-${Math.round(landedCost)}`,
+        supplier_id: supp.id,
+        supplier_name: supp.name,
+        supplier_type: supp.type,
+        supplier_location: supp.location,
+        distance_km: dist,
+        items_breakdown: breakdown,
+        total_base_item_cost: baseItemCost,
+        logistics_cost: logisticsCost,
+        platform_fee: platformFee,
+        tax_amount: tax,
+        landed_cost: landedCost,
+        estimated_delivery_hours: etaHours,
+        reliability_score: reliability
+      });
+    }
+  });

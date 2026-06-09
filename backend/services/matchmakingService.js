@@ -80,3 +80,44 @@ function matchSuppliers(merchantReq, registeredSuppliers) {
       });
     }
   });
+
+  if (quotes.length === 0) {
+    return { status: "NO_MATCH", message: "No single supplier has sufficient stock for all requested items." };
+  }
+
+  // Top 3 Selection
+  const cheapest = [...quotes].sort((a, b) => a.landed_cost - b.landed_cost)[0];
+  cheapest.tag = "CHEAPEST";
+
+  const fastest = [...quotes].sort((a, b) => a.estimated_delivery_hours - b.estimated_delivery_hours)[0];
+  fastest.tag = "FASTEST";
+
+  const minCost = Math.min(...quotes.map(q => q.landed_cost));
+  const maxCost = Math.max(...quotes.map(q => q.landed_cost)) || (minCost + 1);
+  const minEta = Math.min(...quotes.map(q => q.estimated_delivery_hours));
+  const maxEta = Math.max(...quotes.map(q => q.estimated_delivery_hours)) || (minEta + 1);
+
+  const bestValue = [...quotes].sort((a, b) => {
+    const scoreA = 0.45 * (1 - (a.landed_cost - minCost) / (maxCost - minCost)) * 100 +
+                   0.35 * (1 - (a.estimated_delivery_hours - minEta) / (maxEta - minEta)) * 100 +
+                   0.20 * a.reliability_score;
+    const scoreB = 0.45 * (1 - (b.landed_cost - minCost) / (maxCost - minCost)) * 100 +
+                   0.35 * (1 - (b.estimated_delivery_hours - minEta) / (maxEta - minEta)) * 100 +
+                   0.20 * b.reliability_score;
+    return scoreB - scoreA;
+  })[0];
+  bestValue.tag = "BEST_VALUE";
+
+  return {
+    status: "SUCCESS",
+    total_candidates_evaluated: quotes.length,
+    recommendations: {
+      cheapest,
+      fastest,
+      best_value: bestValue
+    },
+    all_quotes: quotes
+  };
+}
+
+module.exports = { matchSuppliers };

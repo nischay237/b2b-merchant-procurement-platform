@@ -31,3 +31,35 @@ exports.processIntake = async (req, res) => {
       target_budget: target_budget || 45000
     };
 
+    const suppliers = await supplierModel.getAllSuppliers();
+    const result = matchSuppliers(requirement, suppliers);
+
+    if (result.status === "NO_MATCH") {
+      return res.status(404).json({ success: false, message: result.message });
+    }
+
+    res.json({
+      success: true,
+      requirement,
+      total_candidates_evaluated: result.total_candidates_evaluated,
+      recommendations: result.recommendations,
+      all_quotes: result.all_quotes
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// POST /api/procurement/whatsapp-preview
+exports.generateWhatsAppPreview = async (req, res) => {
+  try {
+    const { requirement } = req.body || {};
+    if (!requirement) {
+      return res.status(400).json({ success: false, error: "Requirement object required" });
+    }
+    const messageText = generateRetailerIntakeConfirm(requirement);
+    res.json({ success: true, whatsapp_message: messageText });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};

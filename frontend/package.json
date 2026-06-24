@@ -1,0 +1,9 @@
+{
+  "name": "merchant-procurement-frontend",
+  "version": "1.0.0",
+  "description": "React.js Tailwind CSS Frontend for B2B Merchant Procurement Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

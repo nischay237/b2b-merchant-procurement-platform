@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Wholesale Mandi - Direct Merchant Procurement Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        .bg-teal-main { background-color: #4ECDC4; }
+        .text-teal-main { color: #4ECDC4; }
+        .border-teal-main { border-color: #4ECDC4; }
+
+        .bg-coral-main { background-color: #FF7A59; }
+        .text-coral-main { color: #FF7A59; }
+        .border-coral-main { border-color: #FF7A59; }
+
+        .bg-gold-offer { background-color: #FCD385; }
+
+        .wave-container {
+            position: relative;
+            background: #FF7A59;
+        }
+    </style>
+    <!-- React & Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        // Expanded Wholesale Sellers Database (SAFE 9-DIGIT PHONE NUMBERS)
+        const INITIAL_SUPPLIERS_DB = [
+            {
+                id: "SUP-UNN-02",
+                name: "Unnao Agro & FMCG Processing Industries",
+                type: "Manufacturer",
+                location: "Industrial Area, Unnao, UP",
+                phone: "+91 99999 9999",
+                whatsapp: "91999999999",
+                coords: [26.5393, 80.4878],
+                rating: 4.8,
+                accuracy: 0.98,
+                leadTime: 3.5,
+                catalog: [
+                    { item: "Wheat Flour (Aata)", category: "KIRANA", price: 27.5, unit: "kg", stock: 15000, minQty: 100 },
+                    { item: "Mustard Oil", category: "KIRANA", price: 128.0, unit: "Liters", stock: 8000, minQty: 50 },
+                    { item: "Refined Soyabean Oil", category: "KIRANA", price: 115.0, unit: "Liters", stock: 10000, minQty: 50 },
+                    { item: "Dettol Bath Soap (Carton of 144 pcs)", category: "SABUN_HYGIENE", price: 3600.0, unit: "Carton", stock: 500, minQty: 1 },
+                    { item: "Surf Excel Easy Wash (10kg Sack)", category: "SABUN_HYGIENE", price: 850.0, unit: "Sack", stock: 1200, minQty: 5 }
+                ],
+                reviews: [

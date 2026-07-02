@@ -116,3 +116,63 @@
                 catalog: [
                     { item: "20W Type-C Fast Chargers (Box of 20 pcs)", category: "ELECTRONICS", price: 2400.0, unit: "Box", stock: 400, minQty: 1 },
                     { item: "9W LED Bulbs (Box of 100 bulbs)", category: "ELECTRONICS", price: 2800.0, unit: "Box", stock: 900, minQty: 1 }
+                ],
+                reviews: [
+                    { reviewer: "Vikas Saxena", shop: "Saxena Mobile Care", location: "Kanpur", rating: 5, date: "21 Aug 2026", comment: "Fast Chargers box @ ₹120/pc is unbeatable!" }
+                ]
+            }
+        ];
+
+        function App() {
+            const [suppliersDB, setSuppliersDB] = useState(INITIAL_SUPPLIERS_DB);
+            const [searchQuery, setSearchQuery] = useState("");
+            const [selectedCategory, setSelectedCategory] = useState("ALL");
+            
+            // ACTIVE NAVIGATION TAB STATE (Matching User Screenshot)
+            const [activeNav, setActiveNav] = useState("HOME"); // 'LANDING' | 'PRICING' | 'HOME' | 'ABOUT' | 'SERVICES' | 'CONTACT'
+
+            // Cart & Modals
+            const [cart, setCart] = useState([]);
+            const [isCartOpen, setIsCartOpen] = useState(false);
+            const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
+            
+            // Auth & Profile Modal State
+            const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+            const [authTab, setAuthTab] = useState("LOGIN"); // 'LOGIN' | 'SIGNUP'
+            const [userLoggedIn, setUserLoggedIn] = useState(true);
+            const [loginUsername, setLoginUsername] = useState("guptakirana");
+            const [loginPassword, setLoginPassword] = useState("******");
+
+            // COMPLETE MERCHANT PROFILE & FULL ADDRESS STATE
+            const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+            const [merchantProfile, setMerchantProfile] = useState({
+                merchantName: "Shri Gupta",
+                shopName: "Gupta Kirana & General Store",
+                category: "Kirana / Grocery Shop Owner",
+                gstin: "09ABCDE1234F1Z5",
+                phone: "+91 99999 9999", // 9-digit safe dummy phone number
+                whatsapp: "+91 99999 9999",
+                streetAddress: "Plot 42, Main Wholesale Mandi Road",
+                houseShopNo: "Shop No. 12-B",
+                landmark: "Near Central Bank Branch",
+                city: "Kanpur",
+                state: "Uttar Pradesh",
+                pincode: "208011",
+                isComplete: true
+            });
+
+            // Reviews Modal
+            const [selectedSellerForReview, setSelectedSellerForReview] = useState(null);
+
+            // Checkout State
+            const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+            const [confirmedOrder, setConfirmedOrder] = useState(null);
+            const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("UPI");
+
+            // Filter products
+            const filteredResults = useMemo(() => {
+                const queryLower = searchQuery.toLowerCase().trim();
+                const matchedList = [];
+
+                suppliersDB.forEach(supp => {
+                    supp.catalog.forEach(catItem => {

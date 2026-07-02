@@ -176,3 +176,62 @@
 
                 suppliersDB.forEach(supp => {
                     supp.catalog.forEach(catItem => {
+                        const matchesCategory = selectedCategory === "ALL" || catItem.category === selectedCategory;
+                        const matchesSearch = !queryLower || catItem.item.toLowerCase().includes(queryLower);
+
+                        if (matchesCategory && matchesSearch) {
+                            const dist = Math.max(Math.round((26.4499 - supp.coords[0]) * 100 * 10) / 10, 5.0);
+                            const speedKmh = 45;
+                            const etaHours = Math.round((supp.leadTime + (dist / speedKmh)) * 10) / 10;
+
+                            matchedList.push({
+                                sellerId: supp.id,
+                                sellerName: supp.name,
+                                sellerType: supp.type,
+                                location: supp.location,
+                                phone: supp.phone,
+                                whatsapp: supp.whatsapp,
+                                rating: supp.rating,
+                                reviews: supp.reviews || [],
+                                distanceKm: dist,
+                                etaHours,
+                                item: catItem.item,
+                                category: catItem.category,
+                                wholesalePrice: catItem.price,
+                                unit: catItem.unit,
+                                stock: catItem.stock,
+                                minQty: catItem.minQty
+                            });
+                        }
+                    });
+                });
+
+                if (matchedList.length === 0) return [];
+
+                const priceMap = {};
+                const etaMap = {};
+
+                matchedList.forEach(m => {
+                    if (!priceMap[m.item] || m.wholesalePrice < priceMap[m.item]) priceMap[m.item] = m.wholesalePrice;
+                    if (!etaMap[m.item] || m.etaHours < etaMap[m.item]) etaMap[m.item] = m.etaHours;
+                });
+
+                return matchedList.map(item => ({
+                    ...item,
+                    isCheapest: item.wholesalePrice === priceMap[item.item],
+                    isFastest: item.etaHours === etaMap[item.item]
+                })).sort((a, b) => a.wholesalePrice - b.wholesalePrice);
+            }, [searchQuery, selectedCategory, suppliersDB]);
+
+            // Cart Operations
+            const addToCart = (sellerItem, reqQty) => {
+                const qtyToAdd = Number(reqQty) || sellerItem.minQty;
+                const existingIndex = cart.findIndex(
+                    c => c.sellerId === sellerItem.sellerId && c.item === sellerItem.item
+                );
+
+                if (existingIndex > -1) {
+                    const updatedCart = [...cart];
+                    updatedCart[existingIndex].qty += qtyToAdd;
+                    setCart(updatedCart);
+                } else {

@@ -235,3 +235,62 @@
                     updatedCart[existingIndex].qty += qtyToAdd;
                     setCart(updatedCart);
                 } else {
+                    setCart([...cart, { ...sellerItem, qty: qtyToAdd }]);
+                }
+                setIsCartOpen(true);
+            };
+
+            const cartSubtotal = cart.reduce((sum, i) => sum + (i.wholesalePrice * i.qty), 0);
+            const cartLogistics = cart.length > 0 ? Math.round(350 + (cartSubtotal * 0.03)) : 0;
+            const cartTax = Math.round(cartSubtotal * 0.05);
+            const cartTotal = cartSubtotal + cartLogistics + cartTax;
+
+            // Load Kanpur Kirana Demo
+            const loadKanpurDemo = () => {
+                setSelectedCategory("ALL");
+                setSearchQuery("Wheat Flour (Aata)");
+                const unnaoFlour = suppliersDB[0].catalog[0];
+                const kanpurOil = suppliersDB[1].catalog[1];
+
+                setCart([
+                    {
+                        sellerId: suppliersDB[0].id,
+                        sellerName: suppliersDB[0].name,
+                        location: suppliersDB[0].location,
+                        phone: suppliersDB[0].phone,
+                        whatsapp: suppliersDB[0].whatsapp,
+                        item: unnaoFlour.item,
+                        wholesalePrice: unnaoFlour.price,
+                        unit: unnaoFlour.unit,
+                        qty: 500,
+                        distanceKm: 22.4,
+                        etaHours: 3.9
+                    },
+                    {
+                        sellerId: suppliersDB[1].id,
+                        sellerName: suppliersDB[1].name,
+                        location: suppliersDB[1].location,
+                        phone: suppliersDB[1].phone,
+                        whatsapp: suppliersDB[1].whatsapp,
+                        item: kanpurOil.item,
+                        wholesalePrice: kanpurOil.price,
+                        unit: kanpurOil.unit,
+                        qty: 200,
+                        distanceKm: 5.0,
+                        etaHours: 1.6
+                    }
+                ]);
+                setIsCartOpen(true);
+            };
+
+            const placeOrder = () => {
+                const orderId = `ORD-KNP-${Math.floor(100000 + Math.random() * 900000)}`;
+                setConfirmedOrder({
+                    orderId,
+                    items: [...cart],
+                    totalPaid: cartTotal,
+                    paymentMethod: selectedPaymentMethod,
+                    deliveryEta: Math.min(...cart.map(c => c.etaHours || 2.5))
+                });
+                setCart([]);
+                setIsCartOpen(false);

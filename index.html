@@ -294,3 +294,63 @@
                 });
                 setCart([]);
                 setIsCartOpen(false);
+                setIsCheckoutModalOpen(true);
+            };
+
+            // Handle Nav Click & Highlight (Exact User Screenshot Parity)
+            const handleNavClick = (tabName, sectionId) => {
+                setActiveNav(tabName);
+                if (sectionId) {
+                    const el = document.getElementById(sectionId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-slate-50 text-slate-800">
+                    {/* Top Header / Navbar (Exact Screenshot Layout & Highlighting) */}
+                    <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+                        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                            {/* Navigation Links with Active Highlighting */}
+                            <nav className="flex items-center gap-6 md:gap-8 text-sm font-medium">
+                                <button
+                                    onClick={() => handleNavClick("LANDING", "hero")}
+                                    className={`transition-colors py-1 ${activeNav === "LANDING" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    Landing
+                                </button>
+                                <button
+                                    onClick={() => handleNavClick("PRICING", "how-it-works")}
+                                    className={`transition-colors py-1 ${activeNav === "PRICING" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    Pricing
+                                </button>
+                                <button
+                                    onClick={() => handleNavClick("HOME", "hero")}
+                                    className={`transition-colors py-1 ${activeNav === "HOME" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    Home
+                                </button>
+                                <button
+                                    onClick={() => handleNavClick("ABOUT", "features")}
+                                    className={`transition-colors py-1 ${activeNav === "ABOUT" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    About
+                                </button>
+                                <button
+                                    onClick={() => { handleNavClick("SERVICES", "hero"); setIsCatalogModalOpen(true); }}
+                                    className={`transition-colors py-1 ${activeNav === "SERVICES" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    Services
+                                </button>
+                                <button
+                                    onClick={() => handleNavClick("CONTACT", "contact")}
+                                    className={`transition-colors py-1 ${activeNav === "CONTACT" ? "font-bold text-slate-900 border-b-2 border-slate-900" : "text-slate-500 hover:text-slate-800"}`}
+                                >
+                                    Contact
+                                </button>
+                            </nav>
+
+                            {/* Right Profile & Cart Badge (Exact Screenshot Alignment) */}
+                            <div className="flex items-center gap-3">
+                                <button

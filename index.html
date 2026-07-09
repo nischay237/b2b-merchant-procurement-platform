@@ -354,3 +354,62 @@
                             {/* Right Profile & Cart Badge (Exact Screenshot Alignment) */}
                             <div className="flex items-center gap-3">
                                 <button
+                                    onClick={() => setIsAuthModalOpen(true)}
+                                    className="hidden sm:inline-block text-xs text-slate-500 hover:text-slate-900 font-semibold px-2 py-1"
+                                >
+                                    {userLoggedIn ? "Sign In" : "Login"}
+                                </button>
+
+                                <button
+                                    onClick={() => setIsProfileModalOpen(true)}
+                                    className="bg-slate-100/80 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2 rounded-full text-xs flex items-center gap-2 transition-all shadow-inner border border-slate-200"
+                                >
+                                    <span className="text-purple-700">👤</span>
+                                    <span>{merchantProfile.shopName}</span>
+                                </button>
+
+                                <button
+                                    onClick={() => setIsCartOpen(true)}
+                                    className="relative p-2 text-slate-700 hover:text-slate-900"
+                                >
+                                    <span className="text-xl">🛒</span>
+                                    {cart.length > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-coral-main text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                                            {cart.reduce((s, i) => s + i.qty, 0)}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+
+
+                    {/* SECTION 1: SPLIT HERO GRID */}
+                    <section id="hero" className="max-w-7xl mx-auto px-6 py-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                            {/* Left Box: White Overlapping Content Card */}
+                            <div className="lg:col-span-6 bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-slate-100 flex flex-col justify-between">
+                                <div>
+                                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">
+                                        Wholesale Services
+                                    </h1>
+
+                                    <div className="grid grid-cols-3 gap-6 mb-8 text-xs">
+                                        <div>
+                                            <h4 className="font-extrabold text-slate-900 text-sm mb-1">Kirana & FMCG</h4>
+                                            <p className="text-slate-400 leading-relaxed">Aata, Rice, Oil, Sugar & Pulses in bulk.</p>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-extrabold text-slate-900 text-sm mb-1">Sabun & Hygiene</h4>
+                                            <p className="text-slate-400 leading-relaxed">Bath Soaps, Surf & Vim Bar cartons.</p>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-extrabold text-slate-900 text-sm mb-1">Apparel Lots</h4>
+                                            <p className="text-slate-400 leading-relaxed">Surat Sarees, T-Shirts & Jeans lots.</p>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-extrabold text-slate-900 text-sm mb-1">Electronics</h4>
+                                            <p className="text-slate-400 leading-relaxed">Delhi Chargers, Bulbs & Accessories.</p>
+                                        </div>
+                                        <div>

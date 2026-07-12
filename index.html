@@ -473,3 +473,62 @@
                                         🔍
                                     </div>
                                     <span className="text-xs font-extrabold tracking-wide">1. Search Items</span>
+                                </div>
+                                <div className="flex flex-col items-center gap-3">
+                                    <div className="w-14 h-14 bg-white text-coral-main rounded-full flex items-center justify-center text-xl font-bold shadow-md">
+                                        🏷️
+                                    </div>
+                                    <span className="text-xs font-extrabold tracking-wide">2. Compare Rates</span>
+                                </div>
+                                <div className="flex flex-col items-center gap-3">
+                                    <div className="w-14 h-14 bg-white text-coral-main rounded-full flex items-center justify-center text-xl font-bold shadow-md">
+                                        🟢
+                                    </div>
+                                    <span className="text-xs font-extrabold tracking-wide">3. Sabse Sasta</span>
+                                </div>
+                                <div className="flex flex-col items-center gap-3">
+                                    <div className="w-14 h-14 bg-white text-coral-main rounded-full flex items-center justify-center text-xl font-bold shadow-md">
+                                        🚚
+                                    </div>
+                                    <span className="text-xs font-extrabold tracking-wide">4. Express Delivery</span>
+                                </div>
+                            </div>
+
+                            <div className="pt-4">
+                                <button
+                                    onClick={() => setIsCatalogModalOpen(true)}
+                                    className="bg-white text-teal-main hover:bg-slate-100 font-extrabold px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all shadow-xl"
+                                >
+                                    START PROCURING NOW
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* SECTION 3: FEATURES & OFFERS GRID */}
+                    <section id="features" className="max-w-7xl mx-auto px-6 py-8">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                            <div className="md:col-span-4 flex flex-col gap-6">
+                                <div className="h-56 bg-slate-200 rounded-2xl overflow-hidden shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&auto=format&fit=crop&q=80" alt="Garments Lot" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="bg-white p-6 rounded-2xl shadow-md border border-slate-100 text-center flex flex-col items-center gap-2">
+                                    <div className="w-12 h-12 bg-teal-main/20 text-teal-main rounded-full flex items-center justify-center font-bold">
+                                        ✓
+                                    </div>
+                                    <h4 className="font-extrabold text-slate-900 text-sm">Express Storefront Delivery</h4>
+                                </div>
+                            </div>
+
+                            <div className="md:col-span-4 flex flex-col gap-6">
+                                <div className="bg-gold-offer p-8 rounded-2xl text-center space-y-3 shadow-md flex-1 flex flex-col justify-center items-center">
+                                    <span className="text-4xl md:text-5xl font-black text-slate-900">10% OFF</span>
+                                    <p className="text-xs font-bold text-slate-800 uppercase tracking-wider">On Your First Bulk Order</p>
+                                    <button onClick={loadKanpurDemo} className="bg-white text-slate-900 font-extrabold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider shadow-md hover:bg-slate-50">
+                                        GET THIS DEAL
+                                    </button>
+                                </div>
+                                <div className="h-44 bg-slate-200 rounded-2xl overflow-hidden shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&auto=format&fit=crop&q=80" alt="Warehouse Freight" className="w-full h-full object-cover" />
+                                </div>
+                            </div>

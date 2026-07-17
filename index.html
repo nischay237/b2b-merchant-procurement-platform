@@ -591,3 +591,63 @@
                                     <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                                         <input
                                             type="text"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            placeholder="🔍 Type item e.g. Aata, Soap, Saree, LED Bulb, Pen..."
+                                            className="w-full md:w-1/2 bg-slate-100 border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-teal-main"
+                                        />
+
+                                        <div className="flex flex-wrap gap-2 text-xs font-semibold">
+                                            <button onClick={() => setSelectedCategory("ALL")} className={`px-3 py-1.5 rounded-lg border ${selectedCategory === "ALL" ? "bg-teal-main text-white border-teal-main" : "bg-white text-slate-600 border-slate-200"}`}>All</button>
+                                            <button onClick={() => setSelectedCategory("KIRANA")} className={`px-3 py-1.5 rounded-lg border ${selectedCategory === "KIRANA" ? "bg-teal-main text-white border-teal-main" : "bg-white text-slate-600 border-slate-200"}`}>Kirana</button>
+                                            <button onClick={() => setSelectedCategory("SABUN_HYGIENE")} className={`px-3 py-1.5 rounded-lg border ${selectedCategory === "SABUN_HYGIENE" ? "bg-teal-main text-white border-teal-main" : "bg-white text-slate-600 border-slate-200"}`}>Sabun</button>
+                                            <button onClick={() => setSelectedCategory("APPAREL_CLOTHES")} className={`px-3 py-1.5 rounded-lg border ${selectedCategory === "APPAREL_CLOTHES" ? "bg-teal-main text-white border-teal-main" : "bg-white text-slate-600 border-slate-200"}`}>Apparel</button>
+                                            <button onClick={() => setSelectedCategory("ELECTRONICS")} className={`px-3 py-1.5 rounded-lg border ${selectedCategory === "ELECTRONICS" ? "bg-teal-main text-white border-teal-main" : "bg-white text-slate-600 border-slate-200"}`}>Electronics</button>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {filteredResults.map((seller, idx) => (
+                                            <div key={idx} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                                                <div>
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                                            {seller.isCheapest ? "🟢 SABSE SASTA" : seller.isFastest ? "⚡ SABSE TEZ" : "⭐ TOP RATED"}
+                                                        </span>
+                                                        <button onClick={() => setSelectedSellerForReview(seller)} className="text-amber-500 text-xs font-bold">
+                                                            ⭐ {seller.rating}★ ({seller.reviews.length} reviews)
+                                                        </button>
+                                                    </div>
+
+                                                    <h4 className="font-extrabold text-slate-900 text-sm">{seller.item}</h4>
+                                                    <p className="text-xs text-slate-500 mt-0.5">Dealer: {seller.sellerName} ({seller.location})</p>
+
+                                                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 my-3 flex justify-between items-center">
+                                                        <div>
+                                                            <div className="text-[10px] text-slate-400">Wholesale Price</div>
+                                                            <div className="text-lg font-black text-slate-900">₹{seller.wholesalePrice.toLocaleString()} / {seller.unit}</div>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <div className="text-[10px] text-slate-400">Delivery ETA</div>
+                                                            <div className="text-xs font-bold text-slate-700">⏱️ {seller.etaHours} Hours</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex gap-2 pt-2 border-t border-slate-100 text-xs">
+                                                    <a href={`tel:${seller.phone}`} className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl text-center">📞 Call {seller.phone}</a>
+                                                    <a href={`https://wa.me/${seller.whatsapp}?text=Hi%20${encodeURIComponent(seller.sellerName)}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-emerald-50 text-emerald-700 font-bold py-2 rounded-xl text-center border border-emerald-200">💬 WhatsApp</a>
+                                                    <button onClick={() => addToCart(seller, seller.minQty)} className="flex-1 bg-teal-main text-white font-bold py-2 rounded-xl">🛒 Add Cart</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* SIGN IN & LOGIN MODAL */}
+                    {isAuthModalOpen && (
+                        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                            <div className="bg-white border border-slate-200 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">

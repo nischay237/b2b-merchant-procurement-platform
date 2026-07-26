@@ -710,3 +710,62 @@
                                     <div>
                                         <label className="block text-slate-600 font-bold mb-1">Store Category</label>
                                         <select value={merchantProfile.category} onChange={(e) => setMerchantProfile({...merchantProfile, category: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-2 py-2 text-slate-800">
+                                            <option value="Kirana / Grocery Shop Owner">Kirana & Grocery</option>
+                                            <option value="Garments & Apparel Retailer">Garments & Apparel</option>
+                                            <option value="Electronics & Mobiles Retailer">Electronics & Mobiles</option>
+                                            <option value="Hardware & Tools Store">Hardware & Electricals</option>
+                                            <option value="Stationery Store">Stationery & General Store</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-slate-600 font-bold mb-1">GSTIN / Trade License No.</label>
+                                        <input type="text" value={merchantProfile.gstin} onChange={(e) => setMerchantProfile({...merchantProfile, gstin: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                    </div>
+                                </div>
+
+                                {/* Full Address Details */}
+                                <div className="space-y-3 pt-2 border-t border-slate-200 text-xs">
+                                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">📦 Complete Store Delivery Address</h4>
+                                    
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label className="block text-slate-600 mb-1">House / Shop No.</label>
+                                            <input type="text" value={merchantProfile.houseShopNo} onChange={(e) => setMerchantProfile({...merchantProfile, houseShopNo: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-slate-600 mb-1">Landmark</label>
+                                            <input type="text" value={merchantProfile.landmark} onChange={(e) => setMerchantProfile({...merchantProfile, landmark: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-600 mb-1">Full Street Address</label>
+                                        <input type="text" value={merchantProfile.streetAddress} onChange={(e) => setMerchantProfile({...merchantProfile, streetAddress: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <div>
+                                            <label className="block text-slate-600 mb-1">City</label>
+                                            <input type="text" value={merchantProfile.city} onChange={(e) => setMerchantProfile({...merchantProfile, city: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-2 py-2 text-slate-800" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-slate-600 mb-1">State</label>
+                                            <input type="text" value={merchantProfile.state} onChange={(e) => setMerchantProfile({...merchantProfile, state: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-2 py-2 text-slate-800" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-slate-600 mb-1">Pincode</label>
+                                            <input type="text" value={merchantProfile.pincode} onChange={(e) => setMerchantProfile({...merchantProfile, pincode: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-2 py-2 text-slate-800" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3 text-xs pt-2 border-t border-slate-200">
+                                    <div>
+                                        <label className="block text-slate-600 mb-1">Safe Mobile No. (9 Digits)</label>
+                                        <input type="text" value={merchantProfile.phone} onChange={(e) => setMerchantProfile({...merchantProfile, phone: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-slate-600 mb-1">WhatsApp No. (9 Digits)</label>
+                                        <input type="text" value={merchantProfile.whatsapp} onChange={(e) => setMerchantProfile({...merchantProfile, whatsapp: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
+                                    </div>
+                                </div>

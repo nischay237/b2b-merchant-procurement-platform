@@ -769,3 +769,63 @@
                                         <input type="text" value={merchantProfile.whatsapp} onChange={(e) => setMerchantProfile({...merchantProfile, whatsapp: e.target.value})} className="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-slate-800" />
                                     </div>
                                 </div>
+
+                                <button onClick={() => { setMerchantProfile({...merchantProfile, isComplete: true}); setIsProfileModalOpen(false); alert("Merchant Address & Profile 100% Saved!"); }} className="w-full bg-teal-main text-white font-extrabold py-3 rounded-xl text-xs transition-colors shadow-lg">
+                                    SAVE PROFILE & VERIFY ADDRESS
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* SECTION 4: FULL-WIDTH CORAL TESTIMONIAL QUOTE BANNER */}
+                    <section className="bg-coral-main text-white py-16 px-6 my-12">
+                        <div className="max-w-3xl mx-auto text-center space-y-6">
+                            <div className="w-12 h-12 bg-white text-coral-main rounded-full flex items-center justify-center font-serif text-2xl font-bold mx-auto shadow-lg">
+                                “
+                            </div>
+                            <blockquote className="text-lg md:text-xl font-medium leading-relaxed italic">
+                                "Fast 3-hour express delivery! Aata quality is top grade and rate is ₹27.50 which gives great margin for my store. Saved ₹4,000 on my 500kg bulk order compared to local mandi."
+                            </blockquote>
+                            <div className="text-xs font-extrabold uppercase tracking-widest text-white/90">
+                                — Ramesh Sharma, Sharma Kirana Store, Kanpur
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* SECTION 5: FOOTER WITH WAVE BACKGROUND */}
+                    <footer id="contact" className="wave-container text-white pt-16 pb-6 px-6 relative">
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 items-center">
+                            <div className="md:col-span-4 space-y-4">
+                                <h3 className="text-2xl font-black">B2B Wholesale Mandi</h3>
+                                <p className="text-white/80 text-xs leading-relaxed max-w-sm">
+                                    Direct Wholesale Procurement Platform connecting retail shopkeepers with verified manufacturers & distributors.
+                                </p>
+                            </div>
+
+                            <div className="md:col-span-4 space-y-3">
+                                <h4 className="text-sm font-bold uppercase tracking-wider">Connect With Us</h4>
+                                <div className="flex gap-3">
+                                    <span className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center font-bold text-xs">f</span>
+                                    <span className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center font-bold text-xs">t</span>
+                                    <span className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center font-bold text-xs">in</span>
+                                </div>
+                            </div>
+
+                            <div className="md:col-span-4 bg-white p-6 rounded-2xl text-slate-900 shadow-xl space-y-3">
+                                <h4 className="font-extrabold text-sm">Newsletter</h4>
+                                <input type="email" placeholder="Email" className="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none" />
+                                <button className="w-full bg-teal-main text-white font-extrabold py-2.5 rounded-xl text-xs uppercase tracking-wider">JOIN NOW</button>
+                            </div>
+                        </div>
+
+                        <div className="max-w-7xl mx-auto border-t border-white/20 pt-6 flex justify-between items-center text-[11px] text-white/70">
+                            <span>Designed for Merchant Procurement | Safe 9-Digit Phone Numbers Configured</span>
+                            <div className="flex gap-4">
+                                <span>Facebook</span>
+                                <span>Twitter</span>
+                                <span>Google+</span>
+                                <span>RSS</span>
+                            </div>
+                        </div>
+                    </footer>
+

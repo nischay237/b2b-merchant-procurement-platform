@@ -829,3 +829,62 @@
                         </div>
                     </footer>
 
+                    {/* CART DRAWER MODAL */}
+                    {isCartOpen && (
+                        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex justify-end">
+                            <div className="bg-white w-full max-w-md h-full p-6 flex flex-col justify-between border-l border-slate-200 overflow-y-auto">
+                                <div>
+                                    <div className="flex justify-between items-center border-b border-slate-200 pb-4 mb-4">
+                                        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                            <span>🛒 Wholesale Order Cart</span>
+                                            <span className="bg-teal-main text-white text-xs px-2 py-0.5 rounded-full font-mono">
+                                                {cart.length} items
+                                            </span>
+                                        </h3>
+                                        <button onClick={() => setIsCartOpen(false)} className="text-slate-400 hover:text-slate-900 text-xl font-bold">✕</button>
+                                    </div>
+
+                                    {cart.length === 0 ? (
+                                        <div className="text-center text-slate-400 py-12">
+                                            <p>Your cart is empty.</p>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            {cart.map((cItem, i) => (
+                                                <div key={i} className="bg-slate-50 p-4 rounded-xl border border-slate-200 relative">
+                                                    <button onClick={() => setCart(cart.filter((_, idx) => idx !== i))} className="absolute top-2 right-2 text-slate-400 hover:text-red-500 text-xs">✕</button>
+                                                    <h4 className="font-bold text-slate-900 text-sm">{cItem.item}</h4>
+                                                    <p className="text-xs text-slate-500">Seller: {cItem.sellerName}</p>
+                                                    <div className="flex justify-between items-center mt-3 pt-2 border-t border-slate-200 text-xs">
+                                                        <span>{cItem.qty} {cItem.unit} × ₹{cItem.wholesalePrice.toLocaleString()}</span>
+                                                        <span className="font-bold text-slate-900">₹{(cItem.qty * cItem.wholesalePrice).toLocaleString()}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
+                                                <div className="flex justify-between text-slate-500">
+                                                    <span>Items Base Wholesale Cost</span>
+                                                    <span>₹{cartSubtotal.toLocaleString()}</span>
+                                                </div>
+                                                <div className="flex justify-between text-slate-500">
+                                                    <span>Logistics Freight Charges</span>
+                                                    <span>₹{cartLogistics.toLocaleString()}</span>
+                                                </div>
+                                                <div className="flex justify-between text-slate-500">
+                                                    <span>GST / Taxes (5%)</span>
+                                                    <span>₹{cartTax.toLocaleString()}</span>
+                                                </div>
+                                                <div className="flex justify-between text-sm font-bold text-slate-900 border-t border-slate-200 pt-2">
+                                                    <span>Total Payable</span>
+                                                    <span className="text-base font-black text-coral-main">₹{cartTotal.toLocaleString()}</span>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-500 mb-2">Select Payment Method</label>
+                                                <div className="grid grid-cols-3 gap-2 text-xs">
+                                                    <button onClick={() => setSelectedPaymentMethod("UPI")} className={`p-2.5 rounded-xl border text-center font-bold ${selectedPaymentMethod === "UPI" ? "bg-teal-main text-white border-teal-main" : "bg-white border-slate-200 text-slate-600"}`}>📱 UPI / GPay</button>
+                                                    <button onClick={() => setSelectedPaymentMethod("COD")} className={`p-2.5 rounded-xl border text-center font-bold ${selectedPaymentMethod === "COD" ? "bg-teal-main text-white border-teal-main" : "bg-white border-slate-200 text-slate-600"}`}>💵 Cash Delivery</button>
+                                                    <button onClick={() => setSelectedPaymentMethod("CARD")} className={`p-2.5 rounded-xl border text-center font-bold ${selectedPaymentMethod === "CARD" ? "bg-teal-main text-white border-teal-main" : "bg-white border-slate-200 text-slate-600"}`}>💳 Card</button>
+                                                </div>

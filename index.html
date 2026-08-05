@@ -888,3 +888,62 @@
                                                     <button onClick={() => setSelectedPaymentMethod("COD")} className={`p-2.5 rounded-xl border text-center font-bold ${selectedPaymentMethod === "COD" ? "bg-teal-main text-white border-teal-main" : "bg-white border-slate-200 text-slate-600"}`}>💵 Cash Delivery</button>
                                                     <button onClick={() => setSelectedPaymentMethod("CARD")} className={`p-2.5 rounded-xl border text-center font-bold ${selectedPaymentMethod === "CARD" ? "bg-teal-main text-white border-teal-main" : "bg-white border-slate-200 text-slate-600"}`}>💳 Card</button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {cart.length > 0 && (
+                                    <div className="pt-4 border-t border-slate-200">
+                                        <button onClick={placeOrder} className="w-full bg-coral-main text-white font-extrabold py-3.5 rounded-xl text-sm shadow-lg shadow-coral-main/30">
+                                            Confirm Order & Pay ₹{cartTotal.toLocaleString()}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* CONFIRMED ORDER MODAL */}
+                    {isCheckoutModalOpen && confirmedOrder && (
+                        <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50">
+                            <div className="bg-white border border-slate-200 p-8 rounded-3xl max-w-lg w-full text-center space-y-4 shadow-2xl">
+                                <div className="w-16 h-16 bg-teal-main/20 text-teal-main rounded-full flex items-center justify-center mx-auto text-3xl font-black">
+                                    ✓
+                                </div>
+                                <h3 className="text-2xl font-black text-slate-900">Order Confirmed & Booked!</h3>
+                                <p className="text-slate-600 text-xs">
+                                    Order <b>{confirmedOrder.orderId}</b> placed for <b>{merchantProfile.shopName}</b>. Wholesaler notified!
+                                </p>
+
+                                <div className="bg-slate-50 p-4 rounded-xl text-left text-xs font-mono text-slate-700 border border-slate-200 space-y-1">
+                                    <div>Total Paid: <b className="text-coral-main">₹{confirmedOrder.totalPaid.toLocaleString()}</b> ({confirmedOrder.paymentMethod})</div>
+                                    <div>Est. Express Delivery: <b>Within {confirmedOrder.deliveryEta} Hours</b></div>
+                                    <div>Delivery Address: <b>{merchantProfile.houseShopNo}, {merchantProfile.streetAddress}, {merchantProfile.city}</b></div>
+                                </div>
+
+                                <div className="space-y-2 pt-2">
+                                    {confirmedOrder.items.map((it, idx) => (
+                                        <div key={idx} className="flex justify-between items-center bg-slate-50 p-3 rounded-xl text-xs border border-slate-200">
+                                            <span className="font-bold text-slate-900">{it.sellerName}</span>
+                                            <a href={`https://wa.me/${it.whatsapp}?text=Hi%20${encodeURIComponent(it.sellerName)},%20I%20placed%20order%20${confirmedOrder.orderId}`} target="_blank" rel="noopener noreferrer" className="bg-emerald-600 text-white px-3 py-1 rounded-lg font-bold">
+                                                💬 Chat WhatsApp
+                                            </a>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button onClick={() => setIsCheckoutModalOpen(false)} className="w-full bg-teal-main text-white font-bold py-3 rounded-xl text-xs">
+                                    Close & Return to Home
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

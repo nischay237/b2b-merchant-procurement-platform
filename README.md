@@ -96,3 +96,51 @@ $$S_{\text{reliability}} = 0.40 \cdot \left(\frac{\text{Rating}}{5.0} \times 100
 | `POST` | `/api/procurement/whatsapp-preview` | Generate WhatsApp RFQ text | Returns formatted Markdown message string |
 
 ---
+
+## 💻 Quickstart & Running Locally
+
+### Prerequisites
+- Node.js (v18+)
+- MongoDB Atlas account (or local MongoDB)
+
+### 1. Clone Repository & Install Dependencies
+```bash
+git clone https://github.com/YOUR_USERNAME/b2b-merchant-procurement-platform.git
+cd b2b-merchant-procurement-platform
+
+# Install Backend Dependencies
+cd backend
+npm install
+
+# Install Frontend Dependencies
+cd ../frontend
+npm install
+```
+
+### 2. Configure Environment Variables (`backend/.env`)
+Create a `.env` file inside `backend/`:
+```env
+PORT=5000
+MONGO_URI=mongodb+srv://YOUR_USER:YOUR_PASSWORD@cluster0.mongodb.net/merchant_procurement_b2b?retryWrites=true&w=majority
+NODE_ENV=development
+```
+
+### 3. Run Applications
+```bash
+# Terminal 1: Run Express REST API Server (Port 5000)
+cd backend
+node server.js
+
+# Terminal 2: Run React Frontend Server (Port 8080)
+cd frontend
+node server.js
+```
+
+- **Frontend App**: [http://localhost:8080](http://localhost:8080)
+- **Backend API**: [http://localhost:5000/health](http://localhost:5000/health)
+
+---
+
+## 📄 License & Credits
+
+Built with ❤️ by **Nischay** using the MERN Stack. Open source under the MIT License.
